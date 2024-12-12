@@ -1,7 +1,9 @@
-package com.splitwise.clone.model;
+package com.splitwise.clone.vo;
 
 import java.time.LocalDateTime;
 import java.util.List;
+
+import com.splitwise.clone.model.PeopleVo;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -9,10 +11,10 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Data
-@Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class ExpenseVo {
+@Builder
+public class ExpenseRequestVo {
 	
 	private Long amount;
 	

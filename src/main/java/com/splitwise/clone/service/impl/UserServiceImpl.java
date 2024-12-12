@@ -2,6 +2,7 @@ package com.splitwise.clone.service.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.splitwise.clone.entity.UserEntity;
 import com.splitwise.clone.mapper.UserMapper;
@@ -16,16 +17,20 @@ public class UserServiceImpl implements UserService {
 	@Autowired
 	private UserRepository userRepository;
 
+	@Autowired
+	private UserMapper userMapper;
+
 	@Override
+	@Transactional(rollbackFor = Exception.class)
 	public void registerUser(UserRequestVo userRequestVo) {
-		UserEntity userEntity = UserMapper.INSTANCE.toUserEntity(userRequestVo);
+		UserEntity userEntity = userMapper.toUserEntity(userRequestVo);
 		userRepository.save(userEntity);
 	}
 
 	@Override
 	public UserVo loginUser(UserRequestVo userRequest) {
 		UserEntity userEntity = userRepository.findByEmail(userRequest.getEmail());
-		UserVo userVo = UserMapper.INSTANCE.toUserVo(userEntity);
+		UserVo userVo = userMapper.toUserVo(userEntity);
 		return userVo;
 	}
 
